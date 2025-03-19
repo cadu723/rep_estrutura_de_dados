@@ -90,6 +90,45 @@ void imprime(No *lista){
     
 }
 
+void remove(No **lista , int num){
+    No *aux = *lista;
+    No *xua= NULL;
+    
+    if(*lista == NULL){
+        printf("lista esta vazia");
+        return 1;
+    }
+    
+    // if for o primeiro
+    if((*lista)->dado == num){
+        No *first = *lista;//ponteiro aponta para o primeiro
+        *lista = (*lista)->prox;//o primeiro elemento se torna o proximo removendo o primeiro"perdendo-o"
+        free(temp);//free no primeiro!
+        printf("o dado %d foi removido", num);
+        return 1 ;
+        
+    }
+    
+    
+    // if for no meio ou final
+        while(aux->dado != num && aux != NULL){
+            xua = aux;
+            aux = aux->prox;
+        }    
+        
+       //se nao tiver o elemento 
+       if(aux == NULL){
+           printf("elemento %d nao encontrado\n",num);
+           return 1 ;
+       }
+        
+       xua->prox = aux->prox;
+        free(aux);
+        printf("dado %d foi removido ",num);
+
+    }
+    
+    
 
 
 // Programa principal
@@ -131,6 +170,14 @@ int main() {
 
              
                 break;
+                
+            case 5:
+                printf("digite o valor da lista a ser retirado");
+                scanf("%d", &valor);
+                remove(&lista, valor);
+            
+                break;
+                
             case 0:
                 printf("Saindo...\n");
                 break;
