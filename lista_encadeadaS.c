@@ -90,28 +90,32 @@ void imprime(No *lista){
     
 }
 
-void remove(No **lista , int num){
+
+//remover
+void tira_no(No **lista , int num){
+    
     No *aux = *lista;
     No *xua= NULL;
     
     if(*lista == NULL){
         printf("lista esta vazia");
-        return 1;
+        return;
     }
     
     // if for o primeiro
     if((*lista)->dado == num){
-        No *first = *lista;//ponteiro aponta para o primeiro
+        No * first = *lista;
         *lista = (*lista)->prox;//o primeiro elemento se torna o proximo removendo o primeiro"perdendo-o"
-        free(temp);//free no primeiro!
+        
+        free(first);//free no primeiro!
         printf("o dado %d foi removido", num);
-        return 1 ;
+        return ;
         
     }
     
     
     // if for no meio ou final
-        while(aux->dado != num && aux != NULL){
+        while( aux != NULL && aux->dado != num ){
             xua = aux;
             aux = aux->prox;
         }    
@@ -119,7 +123,7 @@ void remove(No **lista , int num){
        //se nao tiver o elemento 
        if(aux == NULL){
            printf("elemento %d nao encontrado\n",num);
-           return 1 ;
+           return;
        }
         
        xua->prox = aux->prox;
@@ -129,18 +133,32 @@ void remove(No **lista , int num){
     }
     
     
+No* busca(No **lista,int num) {
+    No* aux = *lista, *no = NULL;
+
+    while(aux != NULL && aux->dado != num){
+        aux = aux->prox;
+    }
+    if(aux != NULL){
+        no = aux;
+    }
+
+    return no;
+}   
 
 
 // Programa principal
 int main() {
     int opcao,valor,ant;
-    No *lista = NULL;
+    No *lista = NULL, *no = NULL;
 
     do{
         printf("1 - Inserir no inicio\n");
         printf("2 - Inserir no fim\n");
         printf("3 - Inserir no meio\n");
         printf("4 - Imprimir\n");
+        printf("5 - Remover\n");
+        printf("6 - Buscar\n");
         printf("0 - Sair\n");
         printf("Opcao: ");
         scanf("%d", &opcao);
@@ -174,8 +192,19 @@ int main() {
             case 5:
                 printf("digite o valor da lista a ser retirado");
                 scanf("%d", &valor);
-                remove(&lista, valor);
+                tira_no(&lista, valor);
             
+                break;
+                
+            case 6:
+                printf("Digite o valor: ");
+                scanf("%d", &valor);
+                no = busca(&lista, valor);
+                if(no != NULL){
+                    printf("Valor encontrado %d\n", no->dado);
+                }else{  
+                    printf("Valor nao encontrado\n");
+                }
                 break;
                 
             case 0:
