@@ -28,11 +28,16 @@ void pop(No **lista){
     free(aux);
 }
 
-void mostrar (No **lista){
-    while(*lista){
-        pop(lista);
+void mostrar(No *pilha) { 
+    No *aux = pilha;
+    printf("Pilha: ");
+    while (aux) {
+        printf("%d ", aux->dado);
+        aux = aux->prox;
     }
+    printf("\n");
 }
+
 
 int main(){
     No *pilha = NULL;
